@@ -117,6 +117,7 @@ h1 {
             <label for="description" class="form-label">Omschrijving</label>
             <textarea name="description" class="form-control" required></textarea>
         </div>
+        <input type="hidden" name="user_id" value="{{ $user_id }}">
         <button class="button button2" type="submit">Maak aan</button>
     </form>
 </body>

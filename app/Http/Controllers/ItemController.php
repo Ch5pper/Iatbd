@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $items = Item::where('user_id', Auth::id())->get();
         return view('items.index', compact('items'));
     }
 
@@ -22,19 +22,20 @@ class ItemController extends Controller
 
     public function create()
     {
-        return view('items.create');
+        $user_id = Auth::id();
+        return view('items.create', compact('user_id'));
     }
 
     public function store(Request $request)
     {
         $item = new Item;
-        $item->user_id = Auth::id(); // Associate the logged-in user
+        $item->user_id = $request->user_id; 
         $item->name = $request->name;
         $item->category = $request->category;
         $item->description = $request->description;
         $item->image = $request->file('image')->store('items/images', 'public');
         $item->save();
-
+    
         return redirect()->route('items.index')->with('success', 'Item created successfully');
     }
 

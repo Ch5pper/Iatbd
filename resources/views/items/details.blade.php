@@ -43,6 +43,16 @@
             font-size: 14px;
             color: #555;
         }
+
+            .product-details img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -57,11 +67,13 @@
     <h1>Product Details</h1>
 
     <div class="product-details">
+    @if($item->image)
+        <img src="{{ asset('storage/' . $item->image) }}" alt="Item Image">
+        @else
+        <img src="https://via.placeholder.com/300x200.png?text=No+Image" alt="No Image">
+        @endif
         <h2>{{ $item->name }}</h2>
         <p>{{ $item->description }}</p>
-        <!-- Display other product details as needed -->
     </div>
-
-    <!-- Add any additional content or styling as needed -->
 </body>
 </html>
