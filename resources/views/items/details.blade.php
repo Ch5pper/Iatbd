@@ -73,7 +73,8 @@
         <img src="https://via.placeholder.com/300x200.png?text=No+Image" alt="No Image">
         @endif
         <h2>{{ $item->name }}</h2>
-        <p>{{ $item->description }}</p>
+        <h3>Categorie: {{ $item->category }}</h3>
+        <p><b>Beschrijving:</b> {{ $item->description }}</p>
     </div>
 </body>
 </html>

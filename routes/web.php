@@ -33,14 +33,35 @@ Route::get('/items', function () {
     return view('items');
 });
 
+Route::get('/Geleend', function () {
+    return view('Geleend');
+});
+
 Route::get('/index', function () {
     return view('index');
 });
+
+Route::get('/products', function () {
+    return view('products');
+});
+
+Route::post('/items/leen/{item}', function ($item) {
+    return view('geleend', compact('item'));
+})->name('items.leen');
+
 
 Route::get('/items/search', [ItemController::class, 'search'])->name('items.search');
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
 Route::get('/Leenmarkt','App\Http\Controllers\ItemController@leenmarkt')->name('items.leenmarkt');
+
+Route::post('/items/{item}/leen', 'App\Http\Controllers\ItemController@leen')->name('items.leen');
+
+Route::post('/reviews', 'ReviewController@store')->name('reviews.store');
+Route::get('/items/{id}/lend', [ItemController::class, 'lend']);
+
+Route::get('/products/{product}/share', 'ProductController@share')->name('products.share');
+Route::post('/products/{product}/share', 'ProductController@shareProduct')->name('products.shareProduct');
 
 Route::get('/register', function () {
     return view('register');

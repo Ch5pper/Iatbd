@@ -232,8 +232,9 @@
         <img src="https://via.placeholder.com/300x200.png?text=No+Image" alt="No Image">
         @endif
         <div class="product-info">
-            <h2>{{ $item->name }}</h2>
-            <p>{{ $item->description }}</p>
+        <h2>{{ $item->name }}</h2>
+        <h3>Categorie: {{ $item->category }}</h3>
+        <p><b>Beschrijving:</b> {{ $item->description }}</p>
             <br>
             <button class="button button2">Leen</button>
             <a href="{{ route('items.show', $item) }}" class="button button2">View Details</a>
@@ -241,7 +242,6 @@
     </div>
     @endforeach
 </div>
-
 
 </body>
 </html>

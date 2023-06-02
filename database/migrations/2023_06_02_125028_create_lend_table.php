@@ -13,12 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('items', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable();
+        Schema::create('lend', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('owner_id');
+            $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -26,10 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('items', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('lend');
     }
-    
 };
