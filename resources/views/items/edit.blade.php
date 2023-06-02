@@ -1,5 +1,3 @@
-<!-- resources/views/items/edit.blade.php -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +113,7 @@
         </select>
         </div>
     <div class="form-group">
-        <label for="description" class="form-label">Beschrijving</label>
+        <label for="description" class="form-label">Omschrijving</label>
         <textarea name="description" class="form-control" required>{{ $item->description }}</textarea>
     </div>
     <button type="submit" class="button button2">Update</button>

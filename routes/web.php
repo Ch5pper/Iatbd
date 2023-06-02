@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -62,6 +63,8 @@ Route::get('/items/{id}/lend', [ItemController::class, 'lend']);
 
 Route::get('/products/{product}/share', 'ProductController@share')->name('products.share');
 Route::post('/products/{product}/share', 'ProductController@shareProduct')->name('products.shareProduct');
+
+Route::post('/comments', [ReviewController::class, 'store'])->name('comments.store');
 
 Route::get('/register', function () {
     return view('register');

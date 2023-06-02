@@ -6,7 +6,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -14,11 +14,6 @@ class ItemController extends Controller
     {
         $items = Item::where('user_id', Auth::id())->get();
         return view('items.index', compact('items'));
-
-        return view('products', [
-            'items' => $items,
-            'countdown' => session('countdown') // Retrieve the countdown value from the session
-        ]);
     }
 
     public function leenmarkt()
@@ -55,6 +50,7 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $item->name = $request->name;
+        $item->user_id = $request->user_id; 
         $item->category = $request->category;
         $item->description = $request->description;
         $item->image = $request->file('image')->store('items/images', 'public');
@@ -81,31 +77,19 @@ class ItemController extends Controller
     }
 
     public function show(Item $item)
-{
-    return view('items.details', compact('item'));
-}
+    {
+        return view('items.details', compact('item'));
+    }
 
-public function leen(Item $item)
-{
-    // Store the product in the session
-    Session::put('geleend', $item);
+    public function leen(Item $item)
+    {
+        // Store the product in the session
+        Session::put('geleend', $item);
 
-    // Generate a random countdown time (in seconds)
-    $countdown = rand(60, 300);
+        // Generate a random countdown time (in seconds)
+        $countdown = rand(60, 300);
 
-    // Redirect back to the products page with the countdown time as a query parameter
-    return redirect()->route('items.index')->with('countdown', $countdown);
-}
-
-
-public function lend($item_id)
-{
-    $current_user = Auth::id();
-
-    $item = Item::find($item_id);
-    $item->borrower_id = $current_user;
-    $item->save();
-
-    return redirect()->route('items.index')->with('success', 'Product added');
-}
+        // Redirect back to the products page with the countdown time as a query parameter
+        return redirect()->route('items.index')->with('countdown', $countdown);
+    }
 }

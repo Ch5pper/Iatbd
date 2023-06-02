@@ -236,12 +236,66 @@
         <h3>Categorie: {{ $item->category }}</h3>
         <p><b>Beschrijving:</b> {{ $item->description }}</p>
             <br>
-            <button class="button button2">Leen</button>
+            @if ($item->user_id !== Auth::id())
+                <form method="POST" action="{{ route('items.leen', $item) }}">
+                @csrf
+                <button type="submit" class="button button2">Leen</button>
+                </form>
+                @else
+                    <p>Jouw item!</p>
+                    <br>
+                @endif
             <a href="{{ route('items.show', $item) }}" class="button button2">View Details</a>
         </div>
     </div>
     @endforeach
 </div>
+
+
+<h2>Geleende item:</h2>
+
+<div class="products">
+<div class="product-card">
+    @if(Session::has('geleend'))
+        <div>
+            <img src="{{ asset('storage/' . Session::get('geleend')->image) }}" alt="Product Image">
+            <h2>Product: {{ Session::get('geleend')->name }}</h2>
+            <p><b>Categorie:</b> {{ Session::get('geleend')->category }}</p>
+            <p><b>Beschrijving:</b> {{ Session::get('geleend')->description }}</p>
+            <p>Leentijd:<b id="countdown"></b> </p>
+        </div>
+    @else
+        <p>Er is geen product geleend.</p>
+    @endif
+</div>
+</div>
+
+<script>
+var countdownDuration = 7; // 7 days
+
+var now = "{{ now() }}";
+
+var countDownDate = new Date(now);
+countDownDate.setDate(countDownDate.getDate() + countdownDuration);
+
+var countdown = setInterval(function() {
+    var now = new Date().getTime();
+
+    var distance = countDownDate - now;
+
+    if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML = "Countdown expired";
+    } else {
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =  days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+}, 1000);
+</script>
 
 </body>
 </html>

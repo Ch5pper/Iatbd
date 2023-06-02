@@ -37,8 +37,8 @@ h1 {
 }
 
 .button {
-    background-color: #2596be; /* Green */
-    border-radius: 20px 20px 20px 20px;
+    background-color: #2596be;
+    border-radius: 20px;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -47,12 +47,11 @@ h1 {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 
 .button2:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     color: black;
 }
 
@@ -69,8 +68,8 @@ h1 {
 
 .products {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+    gap: 20px;
 }
 
 .product-card {
@@ -129,6 +128,12 @@ h1 {
     margin-left: 10px;
     border: none;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
 }
 
 </style>
